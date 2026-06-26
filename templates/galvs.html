@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galvanized Mods Analysis</title>
+    <style>
+        :root {
+            --bg-main: #0a0e14;
+            --bg-card: #141a24;
+            --text-main: #f0f3f8;
+            --text-muted: #8a96a8;
+            --accent: #ffb800; /* Oro Orokin */
+            --accent-galv: #ff4d4d; /* Rosso scuro stile Arbitration */
+            --border: #242f42;
+            --rank-0: #53d7ff;
+            --rank-max: #ffb800;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding-top: 110px; /* Aumentato per lasciare spazio alla navbar fissa (70px altezza + spazio) */
+            padding-bottom: 40px;
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: linear-gradient(145deg, #101620, #0d121a);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header h1 span {
+            color: var(--accent-galv);
+            text-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background-color: var(--bg-card);
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #0d131c;
+            color: var(--text-muted);
+            padding: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .mod-name {
+            font-weight: 600;
+            text-transform: capitalize;
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+
+        .galv-badge {
+            display: inline-block;
+            background-color: rgba(255, 77, 77, 0.1);
+            color: var(--accent-galv);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 6px;
+            border: 1px solid rgba(255, 77, 77, 0.3);
+        }
+
+        .badge-rank {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .badge-rank.base {
+            background-color: rgba(83, 215, 255, 0.1);
+            color: var(--rank-0);
+            border: 1px solid rgba(83, 215, 255, 0.2);
+        }
+
+        .badge-rank.max {
+            background-color: rgba(255, 184, 0, 0.1);
+            color: var(--rank-max);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+        }
+
+        .plat-value {
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+        
+        .plat-value::after {
+            content: " p";
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .volume-value {
+            font-family: monospace;
+            font-size: 1.05rem;
+            color: #e0e6ed;
+        }
+        .tool-navbar {
+            position: fixed;       /* Fissa la barra in alto */
+            top: 0;                /* Attacca al bordo superiore */
+            left: 0;
+            width: 100%;           /* Occupa tutta la larghezza */
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            background-color: #0a0e14;
+            border-bottom: 2px solid var(--border);
+            z-index: 1000;         /* Assicura che stia sopra ogni altro elemento */
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-item.active {
+            color: var(--accent); /* Il giallo del tuo brand */
+            border-bottom: 2px solid var(--accent); /* Sottolineatura per indicare dov'è l'utente */
+        }
+    </style>
+</head>
+<body>
+<nav class="tool-navbar">
+    <a href="/" class="nav-item {{ 'active' if active_page == 'syndicates' }}">Syndicate Analyzer</a>
+    <a href="/galvs" class="nav-item {{ 'active' if active_page == 'galvs' }}">Galvanized Market</a>
+</nav>
+
+<div class="container">
+    <header>
+        <h1><span>Galvanized</span> Market </h1>
+        <a href="/" class="back-btn">← Return to Home Page</a>
+    </header>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Mod Name</th>
+                    <th>Rank</th>
+                    <th>Average Price (WA)</th>
+                    <th>Trade Volume</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                {% for mod_slug, info in data.items() %}
+                <tr>
+                    <td rowspan="2" style="border-bottom: 2px solid var(--border); width: 40%;">
+                        <div class="mod-name">{{ mod_slug.replace('_', ' ') }}</div>
+                        {% if 'syndicate' in info %}
+                            <span class="syndicate-badge">{{ info.syndicate[0] }}</span>
+                        {% endif %}
+                    </td>
+                    
+                    <td><span class="badge-rank base">Rank 0</span></td>
+                    <td class="plat-value">{{ "%.2f"|format(info.rank_0.price) if info.rank_0 else "0.00" }}</td>
+                    <td class="volume-value">{{ info.rank_0.volume if info.rank_0 else "0" }}</td>
+                </tr>
+                <tr style="border-bottom: 2px solid var(--border);">
+                    <td><span class="badge-rank max">Rank Max</span></td>
+                    <td class="plat-value">{{ "%.2f"|format(info.rank_max.price) if info.rank_max else "0.00" }}</td>
+                    <td class="volume-value">{{ info.rank_max.volume if info.rank_max else "0" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
