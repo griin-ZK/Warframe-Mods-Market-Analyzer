@@ -137,30 +137,32 @@ def get_syndicates_items(items,factions : list[str]):
     """
     SYNDICATE_WARFRAMES = {
     "steelmeridian": [
-        "ash", "atlas", "ember", "excalibur", "frost", "gara", 
-        "khora", "mesa", "nezha", "rhino", "saryn", "vauban"
+        "atlas","citrine", "ember", "excalibur", "frost", "garuda", 
+        "grendel","khora","kullervo", "mesa", "nezha","nidus","nova","oberon",
+        "qorvex", "rhino", "saryn","temple", "vauban", "xaku"
     ],
     "arbitersofhexis": [
-        "ash", "chroma", "equinox", "excalibur", "gara", "harrow", 
-        "inaros", "limbo", "loki", "mirage", "nyx", "wukong"
+        "ash", "baruuk", "dante", "equinox", "excalibur", "excaliburumbra", "gara","gauss" 
+        "gyre", "harrow", "inaros","jade","koumei","limbo","loki", "mirage", "nyx","protea",
+        "styanax","volt","wukong"
     ],
     "cephalonsuda": [
-        "banshee", "chroma", "frost", "hydroid", "limbo", "loki", 
-        "mirage", "nezha", "nova", "oberon", "vauban", "wisp"
+        "banshee", "caliban","chroma","dante", "frost", "hildryn","hydroid","ivara", "limbo",  
+        "mirage", "nezha", "nova", "octavia", "qorvex","revenant","sevagoth","vauban", "wisp","xaku","yareli"
     ],
     "perrinsequence": [
-        "banshee", "chroma", "garuda", "grendel", "hydroid", "inaros", 
-        "ivara", "mag", "nekros", "nidus", "titania", "trinity", 
-        "valkyr", "vauban", "wukong", "zephyr"
+        "banshee", "caliban", "chroma","dagath", "gauss", "gyre", "hyldrin", "inaros", 
+        "ivara", "mag", "nekros", "nidus", "nokko", "protea", 
+        "revenant", "rhino", "sevagoth", "trinity", "valkyr", "vauban"
     ],
     "redveil": [
-        "ash", "atlas", "ember", "harrow", "khora", "loki", 
-        "mesa", "nekros", "nidus", "revenant", "saryn", "volt", "zephyr"
+        "ash","atlas","citrine","dagath","ember","excaliburumbra","garuda", "grendel" , "harrow", "jade" , "khora" , 
+        "lavos" , "loki", "mesa",  "nekros",  "nokko",  "saryn" ,  "titania" ,  "volt",  "voruna", "zephyr"
     ],
     "newloka": [
-        "atlas", "equinox", "garuda", "grendel", "hildryn", "hydroid", 
-        "inaros", "ivara", "mag", "nyx", "oberon", "titania", 
-        "trinity", "valkyr", "wukong", "zephyr"
+       "baruuk",  "equinox" ,  "gara" ,  "hydroid" ,  "koumei" ,  "kullervo" ,  "lavos" ,  "mag" ,  "nyx" ,
+        "oberon",  "octavia", "styanax" ,  "temple" ,  "titania",  "trinity",  "valkyr",  "wisp",  "wukong",
+        "yareli", "zephyr"
     ]
     }
     
