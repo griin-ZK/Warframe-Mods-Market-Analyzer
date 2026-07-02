@@ -6,11 +6,11 @@ app = Flask(__name__)
 # Basic HTML template string for lightning-fast setup without extra files
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     return render_template("./index.html",active_page='syndicates')
 
-@app.route('/raw_stats_item/<slug>')
+@app.route('/raw_stats_item/<slug>', methods=['GET'])
 def raw_stats(slug):
     orders = be.get_statistics_orders_item(slug,True,True)
     return jsonify(orders)
@@ -93,7 +93,7 @@ def galvanized_post():
 
 
     
-@app.route('/items')
+@app.route('/items', methods=['GET'])
 def items():
     
     
